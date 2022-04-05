@@ -5,6 +5,29 @@
 }
 
 <div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+    <div class="limiter">
+        <div class="container-table100">
+            <div class="table100 ver1 m-b-110">
+                <table data-vertable="ver1">
+                    <thead>
+                        <tr class="row100 head">
+                            <th class="column100 column1" data-column="column1"></th>
+                            <th class="column100 column2" data-column="column2">Surname</th>
+                            <th class="column100 column3" data-column="column3">City</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var customer in @Model.Customers)
+                        {
+                            <tr class="row100">
+                                <td class="column100 column1" data-column="column1">@customer.Id</td>
+                                <td class="column100 column2" data-column="column2">@customer.Surname</td>
+                                <td class="column100 column3" data-column="column3">@customer.City</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
 </div>
