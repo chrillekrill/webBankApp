@@ -1,0 +1,59 @@
+﻿@page
+@model BankAppWeb.Pages.Customers.IndexModel
+@{
+}
+
+<div class="text-center">
+    <div class="limiter">
+        <div class="container-table100">
+            <div class="table100 ver1 m-b-110" style="width: 500px;">
+                <table data-vertable="ver1">
+                    <thead>
+                        <tr class="row100 head">
+                            <th class="column100 column2" data-column="column2">
+
+                                @if(Model.Sort == "asc")
+                                {
+                                    <a asp-page="/Customers/Index" asp-route-col="Surname" asp-route-order="desc">
+                                        <i class='bx bxs-sort-alt fa-lg' ></i>
+                                    </a>
+                                } else
+                                {
+                                    <a asp-page="/Customers/Index" asp-route-col="Surname" asp-route-order="asc">
+                                        <i class='bx bxs-sort-alt fa-lg' ></i>
+                                    </a>
+                                }
+                                Surname
+                            </th>
+                            <th class="column100 column3" data-column="column3">
+                                @if(Model.Sort == "asc")
+                                {
+                                    <a asp-page="/Customers/Index" asp-route-col="City" asp-route-order="desc">
+                                        <i class='bx bxs-sort-alt fa-lg' ></i>
+                                    </a>
+                                } else
+                                {
+                                    <a asp-page="/Customers/Index" asp-route-col="City" asp-route-order="asc">
+                                        <i class='bx bxs-sort-alt fa-lg' ></i>
+                                    </a>
+                                }
+                                City
+                            </th>
+                            <th class="column100 column1" data-column="column1"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var customer in @Model.Customers)
+                        {
+                            <tr class="row100">
+                                <td class="column100 column2" data-column="column2">@customer.Surname</td>
+                                <td class="column100 column3" data-column="column3">@customer.City</td>
+                                <td class="column100 column1" data-column="column1"><a asp-page="../Index">Edit</a></td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
