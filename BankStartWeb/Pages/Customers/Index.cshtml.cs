@@ -18,14 +18,17 @@ namespace BankAppWeb.Pages.Customers
         {
             public int Id { get; set; }
             public string Surname { get; set; }
+            public string Givenname { get; set; }
+            public string Fullname => $"{Givenname} {Surname}";
             public string City { get; set; }
+            public string NationalId { get; set; }
             public List<Account>? Accounts { get; set; }
         }
         public int PageNo { get; set; }
         public string SortCol { get; set; }
         public string Sort { get; set; }
         public int TotalPageCount { get; set; }
-        public void OnGet(int pageno = 1, string col = "Surname", string order = "asc")
+        public void OnGet(int pageno = 1, string col = "Givenname", string order = "asc")
         {
             PageNo = pageno;
             SortCol = col;
@@ -35,17 +38,19 @@ namespace BankAppWeb.Pages.Customers
 
             cus = cus.OrderBy(col, order == "asc" ? ExtensionMethods.QuerySortOrder.Asc : ExtensionMethods.QuerySortOrder.Desc);
 
-            var pageResult = cus.GetPaged(PageNo, 20);
+            var pageResult = cus.GetPaged(PageNo, 50);
 
             TotalPageCount = pageResult.PageCount;
 
             Customers = pageResult.Results.Select(c => new CustomerViewModel
             {
                 Id = c.Id,
+                Givenname = c.Givenname,
                 Surname = c.Surname,
                 City = c.City,
+                NationalId = c.NationalId,
                 Accounts = c.Accounts
-            }).ToList();
+        }).ToList();
         }
     }
 }
