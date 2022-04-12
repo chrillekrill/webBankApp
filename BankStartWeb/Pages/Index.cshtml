@@ -16,7 +16,7 @@
                             <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
                                 Total bank value
                             </div>
-                            <div class="h5 mb-0 font-weight-bold text-gray-800">@Model.TotalBalance() sek</div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">@Model.TotalBalance sek</div>
                         </div>
                         <div class="col-auto">
                             <i class="fas fa-piggy-bank fa-2x text-gray-300"></i>
@@ -34,7 +34,7 @@
                             <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
                                 Total number of customers
                             </div>
-                            <div class="h5 mb-0 font-weight-bold text-gray-800">@Model.NumberOfCustomers()</div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">@Model.Customers.Count</div>
                         </div>
                         <div class="col-auto">
                             <i class="fas fa-user fa-2x text-gray-300"></i>
@@ -52,7 +52,7 @@
                             <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
                                 Total number of accounts
                             </div>
-                            <div class="h5 mb-0 font-weight-bold text-gray-800">@Model.NumberOfAccounts()</div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">@Model.Accounts.Count</div>
                         </div>
                         <div class="col-auto">
                             <i class="fas fa-money-check fa-2x text-gray-300"></i>
