@@ -10,7 +10,7 @@
                 <table data-vertable="ver1">
                     <thead>
                         <tr class="row100 head">
-                            <th class="column100 column1" data-column="column1">
+                            <th class="column100 column1 text-center" data-column="column1">
 
                                 @if(Model.Sort == "asc")
                                 {
@@ -25,7 +25,7 @@
                                 }
                                 Name
                             </th>
-                            <th class="column100 column2" data-column="column2">
+                            <th class="column100 column2 text-center" data-column="column2">
                                 @if(Model.Sort == "asc")
                                 {
                                     <a asp-page="/Customers/Index" asp-route-col="City" asp-route-order="desc">
@@ -39,7 +39,7 @@
                                 }
                                 City
                             </th>
-                            <th class="column100 column3" data-column="column3">
+                            <th class="column100 column3 text-center" data-column="column3">
                                 @if(Model.Sort == "asc")
                                 {
                                     <a asp-page="/Customers/Index" asp-route-col="NationalId" asp-route-order="desc">
@@ -53,7 +53,7 @@
                                 }
                                 NationalId
                             </th>
-                            <th class="column100 column4" data-column="column4"></th>
+                            <th class="column100 column4 text-center" data-column="column4"></th>
                         </tr>
                     </thead>
                     <tbody>
@@ -63,7 +63,7 @@
                                 <td class="column100 column1" data-column="column1">@customer.Fullname</td>
                                 <td class="column100 column2" data-column="column2">@customer.City</td>
                                 <td class="column100 column3" data-column="column3">@customer.NationalId</td>
-                                <td class="column100 column4" data-column="column4"><a asp-page="../Index">Edit</a></td>
+                                <td class="column100 column4" data-column="column4"><a asp-page="/Customers/CustomerView" asp-route-id="@customer.Id">View customer</a></td>
                             </tr>
                         }
                     </tbody>

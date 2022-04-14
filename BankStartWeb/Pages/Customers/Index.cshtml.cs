@@ -22,7 +22,6 @@ namespace BankAppWeb.Pages.Customers
             public string Fullname => $"{Givenname} {Surname}";
             public string City { get; set; }
             public string NationalId { get; set; }
-            public List<Account>? Accounts { get; set; }
         }
         public int PageNo { get; set; }
         public string SortCol { get; set; }
@@ -48,8 +47,7 @@ namespace BankAppWeb.Pages.Customers
                 Givenname = c.Givenname,
                 Surname = c.Surname,
                 City = c.City,
-                NationalId = c.NationalId,
-                Accounts = c.Accounts
+                NationalId = c.NationalId
         }).ToList();
         }
     }
