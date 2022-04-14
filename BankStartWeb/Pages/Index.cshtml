@@ -3,31 +3,91 @@
 @{
     ViewData["Title"] = "Home page";
 }
-
-@*<div class="text-center">
-    <div class="limiter">
-        <div class="container-table100">
-            <div class="table100 ver1 m-b-110">
-                <table data-vertable="ver1">
-                    <thead>
-                        <tr class="row100 head">
-                            <th class="column100 column1" data-column="column1"></th>
-                            <th class="column100 column2" data-column="column2">Surname</th>
-                            <th class="column100 column3" data-column="column3">City</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach (var customer in @Model.Customers)
-                        {
-                            <tr class="row100">
-                                <td class="column100 column1" data-column="column1">@customer.Id</td>
-                                <td class="column100 column2" data-column="column2">@customer.Surname</td>
-                                <td class="column100 column3" data-column="column3">@customer.City</td>
-                            </tr>
-                        }
-                    </tbody>
-                </table>
+<div class="d-sm-flex align-items-center justify-content-between mb-4 p-3">
+    <h1 class="h3 mb-0 text-gray-800">Dashboard</h1>
+</div>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card border-left-primary shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                                Total bank value
+                            </div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">@Model.TotalBalance sek</div>
+                        </div>
+                        <div class="col-auto">
+                            <i class="fas fa-piggy-bank fa-2x text-gray-300"></i>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
+
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card border-left-warning shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
+                                Total number of customers
+                            </div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">@Model.Customers.Count</div>
+                        </div>
+                        <div class="col-auto">
+                            <i class="fas fa-user fa-2x text-gray-300"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card border-left-success shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
+                                Total number of accounts
+                            </div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">@Model.Accounts.Count</div>
+                        </div>
+                        <div class="col-auto">
+                            <i class="fas fa-money-check fa-2x text-gray-300"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
     </div>
-</div>*@
+</div>
+@*<div class="text-center">
+    <div class="limiter">
+    <div class="container-table100">
+    <div class="table100 ver1 m-b-110">
+    <table data-vertable="ver1">
+    <thead>
+    <tr class="row100 head">
+    <th class="column100 column1" data-column="column1"></th>
+    <th class="column100 column2" data-column="column2">Surname</th>
+    <th class="column100 column3" data-column="column3">City</th>
+    </tr>
+    </thead>
+    <tbody>
+    @foreach (var customer in @Model.Customers)
+    {
+    <tr class="row100">
+    <td class="column100 column1" data-column="column1">@customer.Id</td>
+    <td class="column100 column2" data-column="column2">@customer.Surname</td>
+    <td class="column100 column3" data-column="column3">@customer.City</td>
+    </tr>
+    }
+    </tbody>
+    </table>
+    </div>
+    </div>
+    </div>
+    </div>*@
