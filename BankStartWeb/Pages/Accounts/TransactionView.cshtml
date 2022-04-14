@@ -1,0 +1,50 @@
+﻿@page
+@model BankAppWeb.Pages.Accounts.TransactionViewModel
+@{
+}
+
+<div class="text-center">
+    <div class="limiter">
+        <div class="container-table100">
+            <div class="table100 ver1 m-b-110" style="width: 1000px;">
+                <table data-vertable="ver1">
+                    <thead>
+                    <tr class="row100 head">
+                        <th class="column100 column1 text-center" data-column="column1">
+                            Transaction ID
+                        </th>
+                        <th class="column100 column2 text-center" data-column="column2">
+                            Amount
+                        </th>
+                        <th class="column100 column3 text-center" data-column="column3">
+                            New balance
+                        </th>
+                        <th class="column100 column5 text-center" data-column="column5">
+                            Operation
+                        </th>
+                        <th class="column100 column6 text-center" data-column="column6">
+                            Type
+                        </th>
+                        <th class="column100 column7 text-center" data-column="column7">
+                            Transaction date
+                        </th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    @foreach (var transaction in @Model.Transactions)
+                    {
+                        <tr class="row100">
+                            <td class="column100 column1" data-column="column1">@transaction.Id</td>
+                            <td class="column100 column2" data-column="column2">@transaction.Amount</td>
+                            <td class="column100 column3" data-column="column3">@transaction.NewBalance sek</td>
+                            <td class="column100 column4" data-column="column4">@transaction.Operation</td>
+                            <td class="column100 column5" data-column="column5">@transaction.Type</td>
+                            <td class="column100 column6" data-column="column6">@transaction.Date</td>
+                        </tr>
+                    }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

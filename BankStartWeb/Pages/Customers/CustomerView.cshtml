@@ -1,0 +1,42 @@
+﻿@page
+@model BankAppWeb.Pages.Customers.CustomerViewModel
+@{
+}
+
+
+<div class="text-center">
+    <div class="limiter">
+        <div class="container-table100">
+            <div class="table100 ver1 m-b-110" style="width: 800px;">
+                <table data-vertable="ver1">
+                    <thead>
+                    <tr class="row100 head">
+                        <th class="column100 column1 text-center" data-column="column1">
+                            Account number
+                        </th>
+                        <th class="column100 column2 text-center" data-column="column2">
+                            Account type
+                        </th>
+                        <th class="column100 column3 text-center" data-column="column3">
+                            Balance
+                        </th>
+                        <th class="column100 column4 text-center" data-column="column4"></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    @foreach (var account in @Model.AccountNumbers)
+                    {
+                        <tr class="row100">
+                            <td class="column100 column1" data-column="column1">@account.Id</td>
+                            <td class="column100 column2" data-column="column2">@account.Accounttype</td>
+                            <td class="column100 column3" data-column="column3">@account.Balance sek</td>
+                            <td class="column100 column4" data-column="column4"><a asp-page="../Accounts/TransactionView" asp-route-id="@account.Id">Transactions</a></td>
+                        </tr>
+                    }
+                    </tbody>
+                </table>
+                <h1 class="p-5">Total balance: @Model.TotalBalance sek</h1>
+            </div>
+        </div>
+    </div>
+</div>
