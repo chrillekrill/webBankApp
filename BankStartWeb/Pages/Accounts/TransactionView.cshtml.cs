@@ -7,7 +7,7 @@ namespace BankAppWeb.Pages.Accounts
 {
     public class TransactionViewModel : PageModel
     {
-        private readonly ApplicationDbContext _context;
+        private readonly ApplicationDbContext context;
         public int id { get; set; }
         public List<Transaction> Transactions { get; set; }
         public class Transaction
@@ -21,11 +21,11 @@ namespace BankAppWeb.Pages.Accounts
         }
         public TransactionViewModel(ApplicationDbContext context)
         {
-            _context = context;
+            this.context = context;
         }
-        public void OnGet(int id)
+        public void OnGet(int accountId)
         {
-            var account = _context.Accounts.Include(a => a.Transactions).First(c => c.Id == id);
+            var account = context.Accounts.Include(a => a.Transactions).First(c => c.Id == accountId);
 
             Transactions = account.Transactions.Select(t => new Transaction
             {
