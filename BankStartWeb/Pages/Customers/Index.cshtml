@@ -66,6 +66,22 @@
                                 <td class="column100 column4" data-column="column4"><a asp-page="/Customers/CustomerView" asp-route-id="@customer.Id">View customer</a></td>
                             </tr>
                         }
+                    <tr class="row100"> 
+                        <td class="column100 column1" data-column="column1">
+                            @if (Model.PageNo > 1)
+                            {
+                                <a asp-page="/Customers/Index" asp-route-col="@Model.SortCol" asp-route-order="@Model.Sort" asp-route-pageno="@(Model.PageNo - 1)">Previous</a>
+                            }
+                        </td>
+                        <td></td>
+                        <td></td>
+                        <td class="column100 column4" data-column="column4" style="">
+                            @if (Model.PageNo < Model.TotalPageCount)
+                            {
+                                <a asp-page="/Customers/Index" asp-route-col="@Model.SortCol" asp-route-order="@Model.Sort" asp-route-pageno="@(Model.PageNo + 1)">Next</a>
+                            }
+                        </td>
+                    </tr>
                     </tbody>
                 </table>
             </div>

@@ -42,6 +42,7 @@ a:focus {
 
 a:hover {
 	text-decoration: none;
+    color: #ffffff !important;
 }
 
 /* ------------------------------------ */
