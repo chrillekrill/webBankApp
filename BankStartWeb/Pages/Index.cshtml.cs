@@ -18,27 +18,23 @@ namespace BankStartWeb.Pages
             this.accountService = accountService;
         }
         public List<decimal> Accounts { get; set; }
-        public List<CustomerViewModel> Customers { get; set; }
+        public List<int> Customers { get; set; }
+        public List <int> Transactions { get; set; }
         public decimal TotalBalance { get; set; }
-        public class CustomerViewModel
-        {
-            public int Id { get; set; }
-        }
-        
         public void OnGet()
         {
             
             var acc = context.Accounts;
             var cus = context.Customers;
+            var tran = context.Transactions;
 
             Accounts = acc.Select(x => x.Balance).ToList();
 
+            Transactions = tran.Select(x => x.Id).ToList();
+
             TotalBalance = accountService.TotalBalance(Accounts);
 
-            Customers = cus.Select(c => new CustomerViewModel
-            {
-                Id = c.Id
-            }).ToList();
+            Customers = cus.Select(c => c.Id).ToList();
 
             
         }

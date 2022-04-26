@@ -7,44 +7,80 @@
     <div class="limiter">
         <div class="container-table100">
             <div class="table100 ver1 m-b-110" style="width: 1000px;">
-                <table data-vertable="ver1">
+                <table data-vertable="ver1" id="posts-table">
                     <thead>
-                    <tr class="row100 head">
-                        <th class="column100 column1 text-center" data-column="column1">
-                            Transaction ID
-                        </th>
-                        <th class="column100 column2 text-center" data-column="column2">
-                            Amount
-                        </th>
-                        <th class="column100 column3 text-center" data-column="column3">
-                            New balance
-                        </th>
-                        <th class="column100 column5 text-center" data-column="column5">
-                            Operation
-                        </th>
-                        <th class="column100 column6 text-center" data-column="column6">
-                            Type
-                        </th>
-                        <th class="column100 column7 text-center" data-column="column7">
-                            Transaction date
-                        </th>
-                    </tr>
+                        <tr class="row100 head">
+                            <th class="column100 column1 text-center" data-column="column1">
+                                Transaction ID
+                            </th>
+                            <th class="column100 column2 text-center" data-column="column2">
+                                Amount
+                            </th>
+                            <th class="column100 column3 text-center" data-column="column3">
+                                New balance
+                            </th>
+                            <th class="column100 column5 text-center" data-column="column5">
+                                Operation
+                            </th>
+                            <th class="column100 column6 text-center" data-column="column6">
+                                Type
+                            </th>
+                            <th class="column100 column7 text-center" data-column="column7">
+                                Transaction date
+                            </th>
+                        </tr>
                     </thead>
                     <tbody>
-                    @foreach (var transaction in @Model.Transactions)
-                    {
-                        <tr class="row100">
+                        @*@foreach (var transaction in @Model.Transactions)
+                            {
+                            <tr class="row100">
                             <td class="column100 column1" data-column="column1">@transaction.Id</td>
                             <td class="column100 column2" data-column="column2">@transaction.Amount</td>
                             <td class="column100 column3" data-column="column3">@transaction.NewBalance sek</td>
                             <td class="column100 column4" data-column="column4">@transaction.Operation</td>
                             <td class="column100 column5" data-column="column5">@transaction.Type</td>
                             <td class="column100 column6" data-column="column6">@transaction.Date</td>
-                        </tr>
-                    }
+                            </tr>
+                            }*@
                     </tbody>
                 </table>
+                <a class="btn btn-facebook" href="javascript:fetchMore();">See more</a>
             </div>
         </div>
     </div>
 </div>
+
+@section Scripts
+{
+<script>
+    pageNo = 1;
+    function fetchMore() {
+        fetch("TransactionView?handler=FetchMore&pageNo=" + pageNo + "&accountId=@Model.Id")
+            .then((response) => response.json())
+            .then((json) => {
+                    pageNo = pageNo + 1;
+                    json.items.forEach(tableElements);
+                }
+            );
+    }
+
+    document.addEventListener("DOMContentLoaded", function () {
+        fetchMore();
+    });
+
+    function tableElements(element) {
+        let newDate = new Date(element.date)
+        document.querySelector('#posts-table tbody').innerHTML +=
+     `<tr class="row100">
+        <td class="column100 column1" data-column="column1">${element.id}</td>
+        <td class="column100 column2" data-column="column2">${element.amount}</td>
+        <td class="column100 column3" data-column="column3">${element.newBalance} sek</td>
+        <td class="column100 column4" data-column="column4">${element.operation}</td>
+        <td class="column100 column5" data-column="column5">${element.type}</td>
+        <td class="column100 column6" data-column="column6">${newDate.toDateString()}</td>
+      </tr>`;
+    }
+
+
+</script>
+}

@@ -17,6 +17,7 @@ builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.Requ
 builder.Services.AddRazorPages();
 builder.Services.AddTransient<DataInitializer>();
 builder.Services.AddTransient<IAccountService, AccountService>();
+builder.Services.AddTransient<ITransactionService, TransactionService>();
 var app = builder.Build();
 
 
