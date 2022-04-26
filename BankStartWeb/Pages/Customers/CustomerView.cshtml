@@ -35,9 +35,9 @@
                         }
                     </tbody>
                 </table>
-                <button class="btn btn-warning" style="color: black; text-decoration: none;">
-                    <a asp-page="../Accounts/SendTransactionView" asp-route-customerId="@Model.Id">New transaction</a>
-                </button>
+
+                    <a class="btn btn-facebook" asp-page="../Accounts/SendTransactionView" asp-route-customerId="@Model.Id">New transaction</a>
+
                 <h1 class="p-5">Total balance: @Model.TotalBalance sek</h1>
             </div>
         </div>
