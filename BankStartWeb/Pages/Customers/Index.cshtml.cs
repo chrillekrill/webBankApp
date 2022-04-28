@@ -2,6 +2,7 @@ using BankAppWeb.Infrastructure.Paging;
 using BankStartWeb.Data;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.EntityFrameworkCore;
 
 namespace BankAppWeb.Pages.Customers
 {
@@ -23,17 +24,22 @@ namespace BankAppWeb.Pages.Customers
             public string City { get; set; }
             public string NationalId { get; set; }
         }
+        public string SearchWord { get; set; }
         public int PageNo { get; set; }
         public string SortCol { get; set; }
         public string Sort { get; set; }
         public int TotalPageCount { get; set; }
-        public void OnGet(int pageno = 1, string col = "Givenname", string order = "asc")
+        public void OnGet(string SearchWord, int pageno = 1, string col = "Givenname", string order = "asc")
         {
             PageNo = pageno;
             SortCol = col;
             Sort = order;
 
             var cus = context.Customers.AsQueryable();
+
+            if (!string.IsNullOrEmpty(SearchWord))
+                cus = cus.Where(customer => customer.Givenname.Contains(SearchWord)
+                || customer.City.Contains(SearchWord));
 
             cus = cus.OrderBy(col, order == "asc" ? ExtensionMethods.QuerySortOrder.Asc : ExtensionMethods.QuerySortOrder.Desc);
 

@@ -4,6 +4,17 @@
 }
 
 <div class="text-center">
+    <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
+        <div class="input-group">
+            <input type="text" asp-for="@Model.SearchWord" class="form-control bg-light border-0 small" placeholder="Search for..."
+                   aria-label="Search" aria-describedby="basic-addon2">
+            <div class="input-group-append">
+                <button class="btn btn-primary" type="submit">
+                    <i class="fas fa-search fa-sm"></i>
+                </button>
+            </div>
+        </div>
+    </form>
     <div class="limiter">
         <div class="container-table100">
             <div class="table100 ver1 m-b-110" style="width: 1000px;">
@@ -12,43 +23,46 @@
                         <tr class="row100 head">
                             <th class="column100 column1 text-center" data-column="column1">
 
-                                @if(Model.Sort == "asc")
+                                @if (Model.Sort == "asc")
                                 {
                                     <a asp-page="/Customers/Index" asp-route-col="Givenname" asp-route-order="desc">
-                                        <i class='bx bxs-sort-alt fa-lg' ></i>
+                                        <i class='bx bxs-sort-alt fa-lg'></i>
                                     </a>
-                                } else
+                                }
+                                else
                                 {
                                     <a asp-page="/Customers/Index" asp-route-col="Givenname" asp-route-order="asc">
-                                        <i class='bx bxs-sort-alt fa-lg' ></i>
+                                        <i class='bx bxs-sort-alt fa-lg'></i>
                                     </a>
                                 }
                                 Name
                             </th>
                             <th class="column100 column2 text-center" data-column="column2">
-                                @if(Model.Sort == "asc")
+                                @if (Model.Sort == "asc")
                                 {
                                     <a asp-page="/Customers/Index" asp-route-col="City" asp-route-order="desc">
-                                        <i class='bx bxs-sort-alt fa-lg' ></i>
+                                        <i class='bx bxs-sort-alt fa-lg'></i>
                                     </a>
-                                } else
+                                }
+                                else
                                 {
                                     <a asp-page="/Customers/Index" asp-route-col="City" asp-route-order="asc">
-                                        <i class='bx bxs-sort-alt fa-lg' ></i>
+                                        <i class='bx bxs-sort-alt fa-lg'></i>
                                     </a>
                                 }
                                 City
                             </th>
                             <th class="column100 column3 text-center" data-column="column3">
-                                @if(Model.Sort == "asc")
+                                @if (Model.Sort == "asc")
                                 {
                                     <a asp-page="/Customers/Index" asp-route-col="NationalId" asp-route-order="desc">
-                                        <i class='bx bxs-sort-alt fa-lg' ></i>
+                                        <i class='bx bxs-sort-alt fa-lg'></i>
                                     </a>
-                                } else
+                                }
+                                else
                                 {
                                     <a asp-page="/Customers/Index" asp-route-col="NationalId" asp-route-order="asc">
-                                        <i class='bx bxs-sort-alt fa-lg' ></i>
+                                        <i class='bx bxs-sort-alt fa-lg'></i>
                                     </a>
                                 }
                                 NationalId
@@ -66,24 +80,25 @@
                                 <td class="column100 column4" data-column="column4"><a asp-page="/Customers/CustomerView" asp-route-id="@customer.Id">View customer</a></td>
                             </tr>
                         }
-                    <tr class="row100"> 
-                        <td class="column100 column1" data-column="column1">
-                            @if (Model.PageNo > 1)
-                            {
-                                <a asp-page="/Customers/Index" asp-route-col="@Model.SortCol" asp-route-order="@Model.Sort" asp-route-pageno="@(Model.PageNo - 1)">Previous</a>
-                            }
-                        </td>
-                        <td></td>
-                        <td></td>
-                        <td class="column100 column4" data-column="column4" style="">
-                            @if (Model.PageNo < Model.TotalPageCount)
-                            {
-                                <a asp-page="/Customers/Index" asp-route-col="@Model.SortCol" asp-route-order="@Model.Sort" asp-route-pageno="@(Model.PageNo + 1)">Next</a>
-                            }
-                        </td>
-                    </tr>
+                        <tr class="row100">
+                            <td class="column100 column1" data-column="column1">
+                                @if (Model.PageNo > 1)
+                                {
+                                    <a asp-page="/Customers/Index" asp-route-col="@Model.SortCol" asp-route-order="@Model.Sort" asp-route-pageno="@(Model.PageNo - 1)">Previous</a>
+                                }
+                            </td>
+                            <td></td>
+                            <td></td>
+                            <td class="column100 column4" data-column="column4" style="">
+                                @if (Model.PageNo < Model.TotalPageCount)
+                                {
+                                    <a asp-page="/Customers/Index" asp-route-col="@Model.SortCol" asp-route-order="@Model.Sort" asp-route-pageno="@(Model.PageNo + 1)">Next</a>
+                                }
+                            </td>
+                        </tr>
                     </tbody>
                 </table>
+                Page @Model.PageNo out of @Model.TotalPageCount
             </div>
         </div>
     </div>
