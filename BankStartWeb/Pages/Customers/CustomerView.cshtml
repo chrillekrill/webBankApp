@@ -3,43 +3,101 @@
 @{
 }
 
+<div class="container">
+    <!-- Start of customer profile -->
+    <div class="container py-5">
+        <div class="row">
+            <div>
+                <div class="card mb-4">
+                    <div class="card-body text-center">
+                        <img src="https://thispersondoesnotexist.com/image" alt="avatar"
+                             class="rounded-circle img-fluid" style="width: 150px;">
+                        <h5 class="my-3">@Model.Givenname</h5>
+                        <p class="text-muted mb-1">@Model.Country, @Model.CountryCode</p>
+                        <p class="text-muted mb-4">@Model.Zipcode</p>
+                    </div>
+                </div>
 
-<div class="text-center">
-    <div class="limiter">
-        <div class="container-table100">
-            <div class="table100 ver1 m-b-110" style="width: 800px;">
-                <table data-vertable="ver1">
-                    <thead>
-                        <tr class="row100 head">
-                            <th class="column100 column1 text-center" data-column="column1">
-                                Account number
-                            </th>
-                            <th class="column100 column2 text-center" data-column="column2">
-                                Account type
-                            </th>
-                            <th class="column100 column3 text-center" data-column="column3">
-                                Balance
-                            </th>
-                            <th class="column100 column4 text-center" data-column="column4"></th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach (var account in @Model.AccountNumbers)
-                        {
-                            <tr class="row100">
-                                <td class="column100 column1" data-column="column1">@account.Id</td>
-                                <td class="column100 column2" data-column="column2">@account.Accounttype</td>
-                                <td class="column100 column3" data-column="column3">@account.Balance sek</td>
-                                <td class="column100 column4" data-column="column4"><a asp-page="../Accounts/TransactionView" asp-route-accountId="@account.Id">Transactions</a></td>
-                            </tr>
-                        }
-                    </tbody>
-                </table>
-
-                    <a class="btn btn-facebook" asp-page="../Accounts/SendTransactionView" asp-route-customerId="@Model.Id">New transaction</a>
-
-                <h1 class="p-5">Total balance: @Model.TotalBalance sek</h1>
             </div>
+            <div class="col-lg-6">
+                <div class="card mb-4">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <p class="mb-0">Full Name</p>
+                            </div>
+                            <div class="col-sm-9">
+                                <p class="text-muted mb-0">@Model.Fullname</p>
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <p class="mb-0">National ID</p>
+                            </div>
+                            <div class="col-sm-9">
+                                <p class="text-muted mb-0">@Model.NationalId</p>
+                            </div>
+                        </div>
+                        <hr>
+
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <p class="mb-0">Address</p>
+                            </div>
+                            <div class="col-sm-9">
+                                <p class="text-muted mb-0">@Model.City, @Model.Streetaddress, @Model.Zipcode</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+
+    <!-- End of customer profile -->
+
+    <div class="text-center">
+        <div class="table100 ver1 m-b-110" style="width: 800px;">
+            <table data-vertable="ver1">
+                <thead>
+                    <tr class="row100 head">
+                        <th class="column100 column1 text-center" data-column="column1">
+                            Account number
+                        </th>
+                        <th class="column100 column2 text-center" data-column="column2">
+                            Account type
+                        </th>
+                        <th class="column100 column3 text-center" data-column="column3">
+                            Balance
+                        </th>
+                        <th class="column100 column4 text-center" data-column="column4"></th>
+                        <th class="column100 column5 text-center" data-column="column5"></th>
+                        <th class="column100 column6 text-center" data-column="column6"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var account in @Model.AccountNumbers)
+                    {
+                        <tr class="row100">
+                            <td class="column100 column1" data-column="column1">@account.Id</td>
+                            <td class="column100 column2" data-column="column2">@account.Accounttype</td>
+                            <td class="column100 column3" data-column="column3">@account.Balance sek</td>
+                            <td class="column100 column4" data-column="column4"><a asp-page="../Accounts/TransactionView" asp-route-accountId="@account.Id" asp-route-customerId="@Model.Id">Transactions</a></td>
+                            <td class="column100 column5" data-column="column5"><a asp-page="../Accounts/DepositAndWithdrawalView" asp-route-accountId="@account.Id" asp-route-customerId="@Model.Id" asp-route-operation="ATM withdrawal">Withdraw</a></td>
+                            <td class="column100 column6" data-column="column6"><a asp-page="../Accounts/DepositAndWithdrawalView" asp-route-accountId="@account.Id" asp-route-customerId="@Model.Id" asp-route-operation="Deposit cash">Deposit</a></td>
+
+                        </tr>
+                    }
+                    <tr class="row100">
+                        <td class="column100 column1" data-column="column1">Total balance: @Model.TotalBalance sek</td>
+                    </tr>
+                </tbody>
+            </table>
+            <br>
+            <a class="btn btn-facebook" asp-page="../Accounts/SendTransactionView" asp-route-customerId="@Model.Id">New transaction</a>
         </div>
     </div>
 </div>

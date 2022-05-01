@@ -1,0 +1,40 @@
+﻿@page
+@model BankAppWeb.Pages.Accounts.DepositAndWithdrawalViewModel
+@{
+}
+
+<div class="container">
+    <div class="card" style="width: 30rem;">
+        <div class="card-header">
+            <h1>New @Model.Operation</h1>
+        </div>
+        <div class="card-body">
+            <form method="post" asp-route-customerId="@Model.CustomerId" asp-route-accountId="@Model.AccountId" asp-route-operation="@Model.Operation">
+
+                @if (Model.Operation == "Deposit cash")
+                {
+                    <div class="form-group">
+                        <label asp-for="Amount">Deposit amount</label>
+                        <input asp-for="Amount" class="form-control" />
+                        <span asp-validation-for="Amount" class="field-validation-error"></span>
+                    </div>
+                    <button type="submit" class="btn btn-outline-success">Deposit</button>
+                }
+                else
+                {
+                    <div class="form-group">
+                        <label asp-for="Amount">Withdraw amount</label>
+                        <input asp-for="Amount" class="form-control" />
+                        <span asp-validation-for="Amount" class="field-validation-error"></span>
+                    </div>
+                    <button type="submit" class="btn btn-outline-success">Withdraw</button>
+                }
+
+
+            </form>
+            <hr />
+            <a class="btn btn-facebook" asp-page="../Customers/CustomerView" asp-route-id="@Model.CustomerId">Back to customer page</a>
+
+        </div>
+    </div>
+</div>

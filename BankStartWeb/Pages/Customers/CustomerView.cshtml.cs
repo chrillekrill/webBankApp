@@ -10,12 +10,15 @@ namespace BankAppWeb.Pages.Customers
     {
         private readonly ApplicationDbContext _context;
         private readonly IAccountService _accountService;
-
         public int Id { get; set; }
         public string Surname { get; set; }
         public string Givenname { get; set; }
         public string Fullname => $"{Givenname} {Surname}";
         public string City { get; set; }
+        public string Zipcode { get; set; }
+        public string Country { get; set; }
+        public string CountryCode { get; set; }
+        public string Streetaddress { get; set; }
         public string NationalId { get; set; }
         public List<CustomerAccount> AccountNumbers { get; set; }
         public decimal TotalBalance { get; set; }
@@ -42,6 +45,10 @@ namespace BankAppWeb.Pages.Customers
             Givenname = cus.Givenname;
             City = cus.City;
             NationalId = cus.NationalId;
+            Zipcode = cus.Zipcode;
+            Country = cus.Country;
+            CountryCode = cus.CountryCode;
+            Streetaddress = cus.Streetaddress;
             AccountNumbers = cus.Accounts.Select(acc => new CustomerAccount
             {
                 Id = acc.Id,
