@@ -121,27 +121,18 @@ namespace BankAppWeb.Pages.Accounts
 
             SetAllCustomers();
         }
-
-        public bool IsValidAmount(decimal amount)
-        {
-            if(amount <= 0)
-            {
-                return false;
-            }
-
-            return true;
-        }
+        
 
         public IActionResult OnPost(int id)
         {
             Id = id;
-            if(!IsValidAmount(Amount))
+            if(!transactionService.IsValidAmount(Amount))
             {
-                ModelState.AddModelError(nameof(Amount), "Please select an amount that is more than 0.");
+                ModelState.AddModelError(nameof(Amount), "Please choose an amount that is greater than 0.");
             } 
             if (ModelState.IsValid)
             {
-                var transaction = transactionService.createTransaction(SenderAccount, ReceivingAccount, Amount, "Debit", "Transfer");
+                var transaction = transactionService.Transfer(SenderAccount, ReceivingAccount, Amount, "Debit", "Transfer");
 
                 if(transaction == ITransactionService.TransactionStatus.Ok)
                 {

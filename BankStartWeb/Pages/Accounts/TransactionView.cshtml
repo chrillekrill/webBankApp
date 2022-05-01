@@ -2,7 +2,6 @@
 @model BankAppWeb.Pages.Accounts.TransactionViewModel
 @{
 }
-
 <div class="text-center">
     <div class="limiter">
         <div class="container-table100">
@@ -44,7 +43,9 @@
                             }*@
                     </tbody>
                 </table>
+                <br />
                 <a class="btn btn-facebook" href="javascript:fetchMore();">See more</a>
+                <a class="btn btn-facebook" asp-page="../Customers/CustomerView" asp-route-id="@Model.CustomerId">Back to customer page</a>
             </div>
         </div>
     </div>

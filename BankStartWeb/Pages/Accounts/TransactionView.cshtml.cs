@@ -10,6 +10,7 @@ namespace BankAppWeb.Pages.Accounts
     {
         private readonly ApplicationDbContext context;
         public int Id { get; set; }
+        public int CustomerId { get; set; }
         public List<Transaction> Transactions { get; set; }
         public class Transaction
         {
@@ -24,8 +25,9 @@ namespace BankAppWeb.Pages.Accounts
         {
             this.context = context;
         }
-        public void OnGet(int accountId)
+        public void OnGet(int accountId, int customerId)
         {
+            CustomerId = customerId;
             Id = accountId;
 
             //var account = context.Accounts.Include(a => a.Transactions).First(c => c.Id == accountId);
