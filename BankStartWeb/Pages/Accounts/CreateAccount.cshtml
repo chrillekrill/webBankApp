@@ -1,0 +1,28 @@
+﻿@page
+@model BankAppWeb.Pages.Accounts.CreateAccountModel
+@{
+}
+
+<div class="container">
+    <div class="card" style="width: 30rem;">
+        <div class="card-header">
+            <h1>New account</h1>
+        </div>
+        <div class="card-body">
+            <form method="post" asp-route-id="@Model.Id">
+                <div class="form-group">
+                    <label asp-for="AccountType">Account type</label>
+                    <select class="form-control" asp-for="AccountType" asp-items="@Model.AllAccountTypes">
+                    </select>
+                    <span asp-validation-for="AccountType" class="field-validation-error"></span>
+                </div>              
+
+                <button type="submit" class="btn btn-outline-success">Create</button>
+
+            </form>
+            <hr />
+            <a class="btn btn-facebook" asp-page="../Customers/CustomerView" asp-route-id="@Model.Id">Back to customer page</a>
+
+        </div>
+    </div>
+</div>

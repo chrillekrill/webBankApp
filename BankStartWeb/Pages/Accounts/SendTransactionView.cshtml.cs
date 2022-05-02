@@ -10,6 +10,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace BankAppWeb.Pages.Accounts
 {
+    [Authorize]
     [BindProperties]
     public class SendTransactionViewModel : PageModel
     {

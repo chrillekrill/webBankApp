@@ -16,6 +16,12 @@
                         <p class="text-muted mb-1">@Model.Country, @Model.CountryCode</p>
                         <p class="text-muted mb-4">@Model.Zipcode</p>
                     </div>
+                    @if (Model.User.IsInRole("Admin"))
+                    {
+                        <form method="POST" asp-page-handler="RemoveCustomer" asp-route-id="@Model.Id" class="text-center mb-2">
+                            <button type="submit" class="btn btn-danger" OnClick="return confirm('Are you sure you want to delete the customer?')">Delete customer</button>
+                        </form>
+                    }
                 </div>
 
             </div>
@@ -76,6 +82,7 @@
                         <th class="column100 column4 text-center" data-column="column4"></th>
                         <th class="column100 column5 text-center" data-column="column5"></th>
                         <th class="column100 column6 text-center" data-column="column6"></th>
+                        <th class="column100 column7 text-center" data-column="column7"></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -88,11 +95,14 @@
                             <td class="column100 column4" data-column="column4"><a asp-page="../Accounts/TransactionView" asp-route-accountId="@account.Id" asp-route-customerId="@Model.Id">Transactions</a></td>
                             <td class="column100 column5" data-column="column5"><a asp-page="../Accounts/DepositAndWithdrawalView" asp-route-accountId="@account.Id" asp-route-customerId="@Model.Id" asp-route-operation="ATM withdrawal">Withdraw</a></td>
                             <td class="column100 column6" data-column="column6"><a asp-page="../Accounts/DepositAndWithdrawalView" asp-route-accountId="@account.Id" asp-route-customerId="@Model.Id" asp-route-operation="Deposit cash">Deposit</a></td>
-
+                            <td class="column100 column7" data-column="column7"><form method="POST" asp-page-handler="RemoveAccount" asp-route-id="@account.Id" asp-route-customerId="@Model.Id"><button type="submit" class="btn btn-danger" OnClick="return confirm('Are you sure you want to delete the account?')">DELETE</button></form></td>
                         </tr>
                     }
                     <tr class="row100">
                         <td class="column100 column1" data-column="column1">Total balance: @Model.TotalBalance sek</td>
+                    </tr>
+                    <tr class="row100">
+                        <td class="column100 column1" data-column="column1"><a asp-page="../Accounts/CreateAccount" asp-route-customerId="@Model.Id">Create account</a></td>
                     </tr>
                 </tbody>
             </table>
@@ -101,3 +111,6 @@
         </div>
     </div>
 </div>
+
+@section Scripts {
+}

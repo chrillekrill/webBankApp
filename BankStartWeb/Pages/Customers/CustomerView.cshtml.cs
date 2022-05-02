@@ -1,15 +1,19 @@
 using BankAppWeb.Services;
 using BankStartWeb.Data;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata.Conventions;
 
 namespace BankAppWeb.Pages.Customers
 {
+    [Authorize]
     public class CustomerViewModel : PageModel
     {
-        private readonly ApplicationDbContext _context;
-        private readonly IAccountService _accountService;
+        private readonly ApplicationDbContext context;
+        private readonly IAccountService accountService;
+        private readonly ITransactionService transactionService;
+
         public int Id { get; set; }
         public string Surname { get; set; }
         public string Givenname { get; set; }
@@ -22,11 +26,13 @@ namespace BankAppWeb.Pages.Customers
         public string NationalId { get; set; }
         public List<CustomerAccount> AccountNumbers { get; set; }
         public decimal TotalBalance { get; set; }
+        public bool confirmDelete { get; set; }
 
-        public CustomerViewModel(ApplicationDbContext context, IAccountService accountService)
+        public CustomerViewModel(ApplicationDbContext context, IAccountService accountService, ITransactionService transactionService)
         {
-            _context = context;
-            _accountService = accountService;
+            this.context = context;
+            this.accountService = accountService;
+            this.transactionService = transactionService;
         }
 
         public class CustomerAccount
@@ -36,9 +42,44 @@ namespace BankAppWeb.Pages.Customers
             public decimal Balance { get; set; }
         }
 
-        public void OnGet(int id)
+        private void RemoveCustomer(int id)
         {
-            var cus = _context.Customers.Include(cus => cus.Accounts).First(c => c.Id == id);
+            var customer = context.Customers.First(x => x.Id == id);
+
+            context.Customers.Remove(customer);
+
+            context.SaveChanges();
+        }
+
+        private void RemoveAccount(int id)
+        {
+            var account = context.Accounts.First(x => x.Id == id);
+
+            if(account.Balance >= 0)
+            {
+                transactionService.Withdraw(id.ToString(), account.Balance, "Close account");
+            }
+
+            foreach(var transaction in context.Transactions) {
+                foreach (var item in account.Transactions)
+                {
+                    if(transaction.Id == item.Id)
+                    {
+                        context.Transactions.Remove(transaction);
+                    } 
+                }
+            }
+
+            context.SaveChanges();
+
+            context.Accounts.Remove(account);
+
+            context.SaveChanges();
+        }
+
+        public void SetInformation(int id)
+        {
+            var cus = context.Customers.Include(cus => cus.Accounts).First(c => c.Id == id);
 
             Id = cus.Id;
             Surname = cus.Surname;
@@ -55,7 +96,37 @@ namespace BankAppWeb.Pages.Customers
                 Accounttype = acc.AccountType,
                 Balance = acc.Balance
             }).ToList();
-            TotalBalance = _accountService.TotalBalance(AccountNumbers.Select(acc => acc.Balance).ToList());
+            TotalBalance = accountService.TotalBalance(AccountNumbers.Select(acc => acc.Balance).ToList());
+        }
+
+        public void OnGet(int id)
+        {
+            SetInformation(id);
+        }
+
+        public IActionResult OnPostRemoveCustomer(int id)
+        {
+            if (ModelState.IsValid)
+            {
+                RemoveCustomer(id);
+
+                return RedirectToPage("/Index");
+            }
+            SetInformation(id);
+
+            return Page();
+        }
+        public IActionResult OnPostRemoveAccount(int id, int customerId)
+        {
+            if (ModelState.IsValid)
+            {
+                RemoveAccount(id);
+
+                return RedirectToPage("/Customers/CustomerView", new {id = customerId});
+            }
+            SetInformation(id);
+
+            return Page();
         }
     }
 }
