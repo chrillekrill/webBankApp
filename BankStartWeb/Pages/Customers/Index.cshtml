@@ -15,6 +15,9 @@
             </div>
         </div>
     </form>
+    @if (Model.User.IsInRole("Admin")) {
+        <a class="btn btn-facebook" asp-page="CreateCustomer">Create customer</a>
+    }  
     <div class="limiter">
         <div class="container-table100">
             <div class="table100 ver1 m-b-110" style="width: 1000px;">

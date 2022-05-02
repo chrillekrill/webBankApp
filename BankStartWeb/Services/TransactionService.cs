@@ -55,11 +55,11 @@ namespace BankAppWeb.Services
             return ITransactionService.TransactionStatus.Ok;
         }
 
-        public ITransactionService.TransactionStatus Withdraw(string account, decimal amount)
+        public ITransactionService.TransactionStatus Withdraw(string account, decimal amount, string operation)
         {
             var withdrawalAccount = context.Accounts.First(a => a.Id.ToString() == account);
 
-            var check = CheckDepositOrWithdrawStatus(withdrawalAccount, amount, "ATM withdrawal");
+            var check = CheckDepositOrWithdrawStatus(withdrawalAccount, amount, operation);
 
             if (check == ITransactionService.TransactionStatus.BalanceTooLow)
             {
@@ -74,7 +74,7 @@ namespace BankAppWeb.Services
 
             context.SaveChanges();
 
-            CreateDepositOrWithdrawalTransaction(account, amount, "Credit", "ATM withdrawal");
+            CreateDepositOrWithdrawalTransaction(account, amount, "Credit", operation);
 
             return ITransactionService.TransactionStatus.Ok;
         }
@@ -154,6 +154,9 @@ namespace BankAppWeb.Services
             } else if(operation == "ATM withdrawal" && acc.Balance < amount)
             {
                 return ITransactionService.TransactionStatus.BalanceTooLow;
+            } else if(operation == "Close account")
+            {
+                return ITransactionService.TransactionStatus.Ok;
             }
             return ITransactionService.TransactionStatus.Ok;
         }

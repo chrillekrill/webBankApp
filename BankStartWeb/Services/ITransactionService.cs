@@ -6,7 +6,7 @@
 
         TransactionStatus Deposit(string account, decimal amount);
 
-        TransactionStatus Withdraw(string account, decimal amount);
+        TransactionStatus Withdraw(string account, decimal amount, string operation);
 
         bool IsValidAmount(decimal amount);
         public enum TransactionStatus

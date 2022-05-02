@@ -1,11 +1,13 @@
 using BankAppWeb.Services;
 using BankStartWeb.Data;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using System.ComponentModel.DataAnnotations;
 
 namespace BankAppWeb.Pages.Accounts
 {
+    [Authorize]
     public class DepositAndWithdrawalViewModel : PageModel
     {
         private readonly ApplicationDbContext context;
@@ -47,7 +49,7 @@ namespace BankAppWeb.Pages.Accounts
 
                 if (operation == "ATM withdrawal")
                 {
-                    transaction = transactionService.Withdraw(accountId.ToString(), Amount);
+                    transaction = transactionService.Withdraw(accountId.ToString(), Amount, operation);
                 } else
                 {
                     transaction = transactionService.Deposit(accountId.ToString(), Amount);

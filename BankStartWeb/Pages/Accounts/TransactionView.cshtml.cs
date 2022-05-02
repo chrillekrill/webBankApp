@@ -1,11 +1,13 @@
 using BankAppWeb.Infrastructure.Paging;
 using BankStartWeb.Data;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 
 namespace BankAppWeb.Pages.Accounts
 {
+    [Authorize]
     public class TransactionViewModel : PageModel
     {
         private readonly ApplicationDbContext context;
@@ -29,18 +31,6 @@ namespace BankAppWeb.Pages.Accounts
         {
             CustomerId = customerId;
             Id = accountId;
-
-            //var account = context.Accounts.Include(a => a.Transactions).First(c => c.Id == accountId);
-
-            //Transactions = account.Transactions.Select(t => new Transaction
-            //{
-            //    Id = t.Id,
-            //    Type = t.Type,
-            //    Operation = t.Operation,
-            //    Date = t.Date,
-            //    Amount = t.Amount,
-            //    NewBalance = t.NewBalance
-            //}).ToList();
         }
 
         public IActionResult OnGetFetchMore(int accountId, int pageNo)
