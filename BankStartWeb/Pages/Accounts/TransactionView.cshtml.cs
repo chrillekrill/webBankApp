@@ -37,7 +37,7 @@ namespace BankAppWeb.Pages.Accounts
         {
             var query = context.Accounts.Where(a => a.Id == accountId)
                 .SelectMany(e => e.Transactions)
-                .OrderBy(a => a.Amount);
+                .OrderByDescending(a => a.Date);
 
             var r = query.GetPaged(pageNo, 5);
 

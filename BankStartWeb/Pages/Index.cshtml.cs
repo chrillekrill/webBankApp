@@ -21,9 +21,17 @@ namespace BankStartWeb.Pages
         public List<int> Customers { get; set; }
         public List <int> Transactions { get; set; }
         public decimal TotalBalance { get; set; }
+        public string Random()
+        {
+            var random = new Random();
+
+            int number = random.Next(100, 200);
+
+            var url = $"https://picsum.photos/id/{number}/200/300";
+            return url;
+        }
         public void OnGet()
         {
-            
             var acc = context.Accounts;
             var cus = context.Customers;
             var tran = context.Transactions;
