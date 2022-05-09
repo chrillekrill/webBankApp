@@ -151,7 +151,7 @@ namespace BankAppWeb.Services
             if(amount <= 0)
             {
                 return ITransactionService.TransactionStatus.AmountIsNegativeOrZero;
-            } else if(operation == "ATM withdrawal" && acc.Balance < amount)
+            } else if(operation == "ATM withdrawal" && acc.Balance < amount || acc.Balance < amount)
             {
                 return ITransactionService.TransactionStatus.BalanceTooLow;
             } else if(operation == "Close account")
