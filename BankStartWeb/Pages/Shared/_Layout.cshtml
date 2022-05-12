@@ -80,18 +80,10 @@
 
             <!-- Nav Item - Pages Collapse Menu -->
             <li class="nav-item">
-                <a class="nav-link collapsed" asp-page="/Customers/Index" data-toggle="collapse" data-target="#collapseTwo"
-                   aria-controls="collapseTwo">
+                <a class="nav-link collapsed" asp-page="/Customers/Index">
                     <i class="fas fa-fw fa-cog"></i>
                     <span>All Customers</span>
                 </a>
-                <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-                    <div class="bg-white py-2 collapse-inner rounded">
-                        <h6 class="collapse-header">Custom Components:</h6>
-                        <a class="collapse-item" href="buttons.html">Buttons</a>
-                        <a class="collapse-item" href="cards.html">Cards</a>
-                    </div>
-                </div>
             </li>
 
 
@@ -113,10 +105,26 @@
 
 
             <!-- Divider -->
-            <hr class="sidebar-divider d-none d-md-block">
+            @if (User.IsInRole("Admin"))
+            {
+                <hr class="sidebar-divider d-none d-md-block">
+
+                <div class="sidebar-heading">
+                    User management
+                </div>
+
+                <li class="nav-item">
+                    <a class="nav-link collapsed" asp-page="/Admin/Index">
+                        <i class="fas fa-fw fa-cog"></i>
+                        <span>Manage users</span>
+                    </a>
+                </li>
+            }
+
 
             <!-- Sidebar Message -->
-            @if(!SignInManager.IsSignedIn(User)) {
+            @if (!SignInManager.IsSignedIn(User))
+            {
 
                 <partial name="_LoginPartial" />
             }
@@ -182,6 +190,7 @@
     <!-- Tables JavaScript-->
     <script src="/lib/vendor/main.js"></script>
     @await RenderSectionAsync("Scripts", required: false)
+    @await Component.InvokeAsync("NToastNotify")
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <partial name="_ValidationScriptsPartial" />
 </body>

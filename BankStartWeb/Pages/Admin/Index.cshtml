@@ -1,0 +1,21 @@
+﻿@page
+@model BankAppWeb.Pages.Admin.IndexModel
+@{
+}
+
+<div class="container text-center d-flex justify-content-center">
+    <div class="card" style="width: 30rem;">
+        <div class="card-header">
+            <p>All users</p>
+        </div>
+
+        <div class="card-body list-group-item-dark">
+            <ul class="">
+                @foreach (var item in Model.Users)
+                {
+                    <li><a class="test" asp-page="EditUser" asp-route-editUser="@item.Id">@item</a></li>
+                }
+            </ul>
+        </div>
+    </div>
+</div>

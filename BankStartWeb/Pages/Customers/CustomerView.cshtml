@@ -21,6 +21,7 @@
                         <form method="POST" asp-page-handler="RemoveCustomer" asp-route-id="@Model.Id" class="text-center mb-2">
                             <button type="submit" class="btn btn-danger" OnClick="return confirm('Are you sure you want to delete the customer?')">Delete customer</button>
                         </form>
+                        <a class="btn btn-success" asp-page="EditCustomer" asp-route-id="@Model.Id">Edit customer</a>
                     }
                 </div>
 
@@ -55,6 +56,16 @@
                                 <p class="text-muted mb-0">@Model.City, @Model.Streetaddress, @Model.Zipcode</p>
                             </div>
                         </div>
+                        <hr>
+
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <p class="mb-0">Telephone number</p>
+                            </div>
+                            <div class="col-sm-9">
+                                <p class="text-muted mb-0">+@Model.TelephoneCountryCode @Model.Telephone</p>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
@@ -79,9 +90,13 @@
                         <th class="column100 column3 text-center" data-column="column3">
                             Balance
                         </th>
-                        <th class="column100 column4 text-center" data-column="column4"></th>
-                        <th class="column100 column5 text-center" data-column="column5"></th>
-                        <th class="column100 column6 text-center" data-column="column6"></th>
+                        @if  (User.IsInRole("Admin") || User.IsInRole("Cashier"))
+                        {
+                            <th class="column100 column4 text-center" data-column="column4"></th>
+                            <th class="column100 column5 text-center" data-column="column5"></th>
+                            <th class="column100 column6 text-center" data-column="column6"></th>
+                        }
+
                         @if (User.IsInRole("Admin"))
                         {
                             <th class="column100 column7 text-center" data-column="column7"></th>
@@ -95,9 +110,12 @@
                             <td class="column100 column1" data-column="column1">@account.Id</td>
                             <td class="column100 column2" data-column="column2">@account.Accounttype</td>
                             <td class="column100 column3" data-column="column3">@account.Balance sek</td>
-                            <td class="column100 column4" data-column="column4"><a asp-page="../Accounts/TransactionView" asp-route-accountId="@account.Id" asp-route-customerId="@Model.Id">Transactions</a></td>
-                            <td class="column100 column5" data-column="column5"><a asp-page="../Accounts/DepositAndWithdrawalView" asp-route-accountId="@account.Id" asp-route-customerId="@Model.Id" asp-route-operation="ATM withdrawal">Withdraw</a></td>
-                            <td class="column100 column6" data-column="column6"><a asp-page="../Accounts/DepositAndWithdrawalView" asp-route-accountId="@account.Id" asp-route-customerId="@Model.Id" asp-route-operation="Deposit cash">Deposit</a></td>
+                            @if (User.IsInRole("Admin") || User.IsInRole("Cashier"))
+                            {
+                                <td class="column100 column4" data-column="column4"><a asp-page="../Accounts/TransactionView" asp-route-accountId="@account.Id" asp-route-customerId="@Model.Id">Transactions</a></td>
+                                <td class="column100 column5" data-column="column5"><a asp-page="../Accounts/DepositAndWithdrawalView" asp-route-accountId="@account.Id" asp-route-customerId="@Model.Id" asp-route-operation="ATM withdrawal">Withdraw</a></td>                            
+                                <td class="column100 column6" data-column="column6"><a asp-page="../Accounts/DepositAndWithdrawalView" asp-route-accountId="@account.Id" asp-route-customerId="@Model.Id" asp-route-operation="Deposit cash">Deposit</a></td>
+                            }
                             @if (User.IsInRole("Admin"))
                             {
                                 <td class="column100 column7" data-column="column7"><form method="POST" asp-page-handler="RemoveAccount" asp-route-id="@account.Id" asp-route-customerId="@Model.Id"><button type="submit" class="btn btn-danger" OnClick="return confirm('Are you sure you want to delete the account?')">DELETE</button></form></td>
@@ -114,10 +132,10 @@
                 </tbody>
             </table>
             <br>
-            <a class="btn btn-facebook" asp-page="../Accounts/SendTransactionView" asp-route-customerId="@Model.Id">New transaction</a>
+            @if (User.IsInRole("Admin") || User.IsInRole("Cashier"))
+             {
+                <a class="btn btn-facebook" asp-page="../Accounts/SendTransactionView" asp-route-customerId="@Model.Id">New transaction</a>
+             }
         </div>
     </div>
 </div>
-
-@section Scripts {
-}

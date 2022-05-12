@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using NToastNotify;
 using System.ComponentModel.DataAnnotations;
 
 namespace BankAppWeb.Pages.Accounts
@@ -11,6 +12,8 @@ namespace BankAppWeb.Pages.Accounts
     public class CreateAccountModel : PageModel
     {
         private readonly ApplicationDbContext context;
+        private readonly IToastNotification toastNotification;
+
         [BindProperty]
         public int Id { get; set; }
         public List<SelectListItem> AllAccountTypes { get; set; }
@@ -19,9 +22,10 @@ namespace BankAppWeb.Pages.Accounts
         [MaxLength(10)]
         public string AccountType { get; set; }
         public DateTime Created { get; set; }
-        public CreateAccountModel(ApplicationDbContext context)
+        public CreateAccountModel(ApplicationDbContext context, IToastNotification toastNotification)
         {
             this.context = context;
+            this.toastNotification = toastNotification;
         }
         private void setAllTypes()
         {
@@ -64,10 +68,14 @@ namespace BankAppWeb.Pages.Accounts
 
                 context.SaveChanges();
 
+                toastNotification.AddSuccessToastMessage("Account created");
+
                 return RedirectToPage("../Customers/CustomerView", new { id });
             }
 
             Id = id;
+
+            toastNotification.AddErrorToastMessage("Something went wrong");
 
             return Page();
         }
