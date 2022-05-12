@@ -1,0 +1,40 @@
+﻿@page
+@model BankAppWeb.Pages.Admin.EditUserModel
+@{
+}
+
+<div class="card">
+
+    <div class="card-header">
+        <h1>@Model.Id</h1>
+
+        <h2>@Model.Name</h2>
+
+    </div>
+
+
+    <div class="card-body">
+        @if (Model.UserRoles != null)
+        {
+            <ul>
+                @foreach (var item in Model.UserRoles)
+                {
+                    <li class="d-flex"><h1 class="mr-5">@item</h1><form method="POST" asp-page-handler="RemoveRole" asp-route-id="@Model.Id" asp-route-roleName="@item"><button type="submit" class="btn btn-danger" OnClick="return confirm('Are you sure you want to delete the role?')">Delete</button></form></li>
+                }
+            </ul>
+        }
+
+    </div>
+    <div class="card-footer">
+    <form method="POST" asp-route-id="@Model.Id" asp-route-selectedRoleToAdd="@Model.SelectedRoleToAdd" asp-route-roles="@Model.UserRoles" asp-page-handler="AddRole">
+        <div class="form-group">
+            <label asp-for="SelectedRoleToAdd">To</label>
+            <select class="form-control" asp-for="SelectedRoleToAdd" asp-items="@Model.AllRoles">
+            </select>
+            <span asp-validation-for="SelectedRoleToAdd" class="field-validation-error"></span>
+        </div>
+
+        <button class="btn btn-success" type="submit">Add role</button>
+    </form>
+    </div>
+</div>

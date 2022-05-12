@@ -5,22 +5,25 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using NToastNotify;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace BankAppWeb.Pages.Accounts
 {
-    [Authorize]
+    [Authorize(Roles = "Admin,Cashier")]
     [BindProperties]
     public class SendTransactionViewModel : PageModel
     {
         private readonly ApplicationDbContext context;
         private readonly ITransactionService transactionService;
+        private readonly IToastNotification toastNotification;
 
-        public SendTransactionViewModel(ApplicationDbContext context, ITransactionService transactionService)
+        public SendTransactionViewModel(ApplicationDbContext context, ITransactionService transactionService, IToastNotification toastNotification)
         {
             this.context = context;
             this.transactionService = transactionService;
+            this.toastNotification = toastNotification;
         }
         [Required]
         [Column(TypeName="decmial(18,2)")]
@@ -137,19 +140,23 @@ namespace BankAppWeb.Pages.Accounts
 
                 if(transaction == ITransactionService.TransactionStatus.Ok)
                 {
+                    toastNotification.AddSuccessToastMessage("Transaction complete");
+
                     return RedirectToPage("../Customers/CustomerView", new { id = id });
                 } else if(transaction == ITransactionService.TransactionStatus.BalanceTooLow)
                 {
                     ModelState.AddModelError(nameof(Amount), "Balance on account is lower than the amount trying to be sent.");
 
                     SetInformation();
-
+                    toastNotification.AddErrorToastMessage("Something went wrong");
                     return Page();
                 } else if(transaction == ITransactionService.TransactionStatus.SameAccount)
                 {
                     ModelState.AddModelError(nameof(ReceivingAccount), "You can't transfer money to the same account.");
 
                     SetInformation();
+
+                    toastNotification.AddErrorToastMessage("Something went wrong");
 
                     return Page();
                 }

@@ -3,19 +3,24 @@ using BankStartWeb.Data;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using NToastNotify;
 using System.ComponentModel.DataAnnotations;
 
 namespace BankAppWeb.Pages.Accounts
 {
-    [Authorize]
+    [Authorize(Roles = "Admin,Cashier")]
     public class DepositAndWithdrawalViewModel : PageModel
     {
         private readonly ApplicationDbContext context;
+        private readonly IToastNotification toastNotification;
         private readonly ITransactionService transactionService;
 
-        public DepositAndWithdrawalViewModel(ApplicationDbContext context, ITransactionService transactionService)
+        public DepositAndWithdrawalViewModel(ApplicationDbContext context,
+            IToastNotification toastNotification,
+            ITransactionService transactionService)
         {
             this.context = context;
+            this.toastNotification = toastNotification;
             this.transactionService = transactionService;
         }
         public int CustomerId { get; set; }
@@ -61,6 +66,7 @@ namespace BankAppWeb.Pages.Accounts
                 }
                 else if(transaction == ITransactionService.TransactionStatus.Ok)
                 {
+                    toastNotification.AddSuccessToastMessage("Transaction complete");
                     return RedirectToPage("../Customers/CustomerView", new { id = customerId });
                 }
             }

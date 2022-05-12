@@ -24,6 +24,8 @@ namespace BankAppWeb.Pages.Customers
         public string CountryCode { get; set; }
         public string Streetaddress { get; set; }
         public string NationalId { get; set; }
+        public string Telephone { get; set; }
+        public int TelephoneCountryCode { get; set; }
         public List<CustomerAccount> AccountNumbers { get; set; }
         public decimal TotalBalance { get; set; }
         public bool confirmDelete { get; set; }
@@ -90,6 +92,8 @@ namespace BankAppWeb.Pages.Customers
             Country = cus.Country;
             CountryCode = cus.CountryCode;
             Streetaddress = cus.Streetaddress;
+            Telephone = cus.Telephone;
+            TelephoneCountryCode = cus.TelephoneCountryCode;
             AccountNumbers = cus.Accounts.Select(acc => new CustomerAccount
             {
                 Id = acc.Id,
