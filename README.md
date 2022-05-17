@@ -11,9 +11,9 @@ ASP.NET CORE 6 with razor pages, SQL with EF core, ASP.NET Identity
 
 # Unit testing
 Unit testing includes
-Depositing
-Withdrawing
-Transfering
+**Depositing**<br/>
+**Withdrawing**<br/>
+**Transfering**
 
 # Admin
 An admin is seeded upon launching the project
