@@ -10,7 +10,7 @@ database is seeded with customers upon starting project
 ASP.NET CORE 6 with razor pages, SQL with EF core, ASP.NET Identity
 
 # Unit testing
-Unit testing includes
+Unit testing includes<br/>
 **Depositing**<br/>
 **Withdrawing**<br/>
 **Transfering**
